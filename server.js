@@ -1,17 +1,23 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const compression = require("compression");
+const indexController = require("./controllers/index");
+const exerciseController = require("./controllers/exercise");
+const statsController = require("./controllers/stats");
 
-const app = express();
+const app = new express();
 const PORT = process.env.PORT || 3000;
 
+app.set("view engine", "ejs");
 app.use(compression());
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// require("./controllers/apiRoutes")(app);
-// require("./controllers/htmlRoutes")(app);
+app.get("/", indexController);
+app.get("/exercise", exerciseController);
+
+
 
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", {
   useNewUrlParser: true,
