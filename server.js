@@ -16,7 +16,7 @@ app.use(express.json());
 
 app.get("/", indexController);
 app.get("/exercise", exerciseController);
-
+app.get("/exercise?", statsController);
 
 
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", {
