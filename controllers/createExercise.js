@@ -1,11 +1,11 @@
 const Workout = require("../models/Workout");
 
 module.exports = async (req, res) => {
-    await Workout.find({}, (err, data) => {
+    await Workout.create(req.body, (err, data) => {
         if (err) {
             res.send(err);
         } else {
-            res.render("index", data);
+            res.json(data);
         }
-    });
+    })
 }

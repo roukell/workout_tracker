@@ -22,12 +22,11 @@ async function initExercise() {
 
   if (location.search.split("=")[1] === undefined) {
     workout = await API.createWorkout()
-    console.log(workout)
+    console.log(workout);
   }
-  if (workout) {
+  if (workout !== undefined) {
     location.search = "?id=" + workout._id;
   }
-
 }
 
 initExercise();
@@ -113,6 +112,8 @@ async function handleFormSubmit(event) {
     workoutData.reps = Number(repsInput.value.trim());
     workoutData.duration = Number(resistanceDurationInput.value.trim());
   }
+
+  console.log(workoutData);
 
   await API.addExercise(workoutData);
   clearInputs();

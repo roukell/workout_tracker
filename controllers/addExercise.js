@@ -1,11 +1,12 @@
 const Workout = require("../models/Workout");
 
 module.exports = async (req, res) => {
-    await Workout.find({}, (err, data) => {
+    const workout = await Workout.findById(req.params.id);
+    workout.update(req.body, (err, data) => {
         if (err) {
             res.send(err);
         } else {
-            res.render("index", data);
+            res.json(data);
         }
-    });
+    })
 }
