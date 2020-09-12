@@ -8,9 +8,9 @@ async function initWorkout() {
 
     const workoutSummary = {
       date: formatDate(lastWorkout.day),
-      totalDuration: lastWorkout.totalDuration,
-      numExercises: lastWorkout.exercises.length,
-      ...tallyExercises(lastWorkout.exercises)
+      totalDuration: lastWorkout.duration,
+      // numExercises: lastWorkout.exercises.length,
+      ...tallyExercises(lastWorkout)
     };
 
     renderWorkoutSummary(workoutSummary);
@@ -20,17 +20,21 @@ async function initWorkout() {
 }
 
 function tallyExercises(exercises) {
-  const tallied = exercises.reduce((acc, curr) => {
-    if (curr.type === "resistance") {
-      acc.totalWeight = (acc.totalWeight || 0) + curr.weight;
-      acc.totalSets = (acc.totalSets || 0) + curr.sets;
-      acc.totalReps = (acc.totalReps || 0) + curr.reps;
-    } else if (curr.type === "cardio") {
-      acc.totalDistance = (acc.totalDistance || 0) + curr.distance;
+  if (exercises.type === "resistance") {
+    let summary = {
+      name: exercises.name,
+      weight: exercises.weight,
+      sets: exercises.sets,
+      reps: exercises.reps
     }
-    return acc;
-  }, {});
-  return tallied;
+    return summary;
+  } else if (curr.type === "cardio") {
+    let summary = {
+      name: exercises.name,
+      distance: exercises.distance
+    }
+    return summary;
+  }
 }
 
 function formatDate(date) {
@@ -49,12 +53,12 @@ function renderWorkoutSummary(summary) {
 
   const workoutKeyMap = {
     date: "Date",
-    totalDuration: "Total Workout Duration",
-    numExercises: "Exercises Performed",
-    totalWeight: "Total Weight Lifted",
-    totalSets: "Total Sets Performed",
-    totalReps: "Total Reps Performed",
-    totalDistance: "Total Distance Covered"
+    totalDuration: "Total Workout Duration (minutes)",
+    name: "Exercise Performed",
+    weight: "Total Weight Lifted (lbs)",
+    sets: "Total Sets Performed",
+    reps: "Total Reps Performed",
+    distance: "Total Distance Covered (mi)"
   };
 
   Object.keys(summary).forEach(key => {

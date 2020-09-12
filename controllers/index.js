@@ -5,7 +5,7 @@ module.exports = async (req, res) => {
         if (err) {
             res.send(err);
         } else {
-            res.render("index", data);
+            res.render("index", { data });
         }
     });
 }

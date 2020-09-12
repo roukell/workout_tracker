@@ -23,6 +23,7 @@ app.get("/stats", statsController);
 app.put("/api/workouts/:id", addExercise);
 app.post("/api/workouts", createExercise);
 app.get("/api/workouts/range", getWorkoutRange);
+app.get("/api/workouts", getWorkoutRange);
 
 
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/my_database", {
