@@ -9,7 +9,6 @@ async function initWorkout() {
     const workoutSummary = {
       date: formatDate(lastWorkout.day),
       totalDuration: lastWorkout.duration,
-      // numExercises: lastWorkout.exercises.length,
       ...tallyExercises(lastWorkout)
     };
 
@@ -28,7 +27,7 @@ function tallyExercises(exercises) {
       reps: exercises.reps
     }
     return summary;
-  } else if (curr.type === "cardio") {
+  } else if (exercises.type === "cardio") {
     let summary = {
       name: exercises.name,
       distance: exercises.distance
