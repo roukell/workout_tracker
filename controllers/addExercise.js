@@ -1,12 +1,21 @@
-const Workout = require("../models/Workout");
+const db = require("../models");
+// const moment = require('moment');
+// const today = moment().format("MMM Do YY");
 
 module.exports = async (req, res) => {
-    const workout = await Workout.findById(req.params.id);
+    // db.day.update({
+    //     day: today
+    // }, {
+    //     $push: {
+    //         exercises: req.params.id
+    //     }
+    // }, {
+    //     upsert: true
+    // });
+
+    const workout = await db.exercises.findById(req.params.id);
     workout.update(req.body, (err, data) => {
-        if (err) {
-            res.send(err);
-        } else {
-            res.json(data);
-        }
+        if (err) throw err;
+        res.json(data);
     })
 }

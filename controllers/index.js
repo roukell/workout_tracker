@@ -1,7 +1,7 @@
-const Workout = require("../models/Workout");
+const db = require("../models");
 
 module.exports = async (req, res) => {
-    await Workout.find({}, (err, data) => {
+    await db.exercises.find({}, (err, data) => {
         if (err) {
             res.send(err);
         } else {
